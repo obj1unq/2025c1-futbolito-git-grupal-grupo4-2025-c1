@@ -18,7 +18,7 @@ object lionel {
 	method estaDondePelota() = position == bocha.position()
 	
 	method validarTaquito() {
-		if (self.estaDondePelota()) self.error("no estoy donde la pelota")
+		if (not self.estaDondePelota()) {self.error("no estoy donde la pelota")}
 	}
 	
 	method taquito() {
@@ -31,6 +31,6 @@ object pelota {
 	const property image = "pelota.png"
 	var property position = game.at(5, 5)
 	method taquito() {
-	  	position = game.at((game.width() - 1).min(position.x() - 2), position.y())
+	  	position = game.at(0.max(position.x() - 2), position.y())
 	}
 }

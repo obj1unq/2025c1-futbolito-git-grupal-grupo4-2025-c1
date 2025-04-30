@@ -1,12 +1,27 @@
 import objetos.*
+
 describe "test de taquito" {
-    method initialize() {
-        game.width(15)
-	    game.height(10)
-    }
-  test "taquito" {
+  method initialize() {
+    game.width(15)
+    game.height(10)
+  }
+  
+  test "efecto taquito" {
     assert.equals(pelota.position(), game.at(5, 5))
     pelota.taquito()
+    assert.equals(pelota.position(), game.at(3, 5))
+  }
+  
+  test "si lionel no esta donde la pelota el taquito lanza error" {
+    assert.equals(pelota.position(), game.at(5, 5))
+    assert.notEquals(lionel.position(), game.at(5, 5))
+    assert.throwsException({ lionel.taquito() })
+  }
+  
+  test "lionel puede realizar taquito si estan en la misma posicion" {
+    assert.equals(pelota.position(), game.at(5, 5))
+    lionel.position(game.at(5, 5))
+    lionel.taquito()
     assert.equals(pelota.position(), game.at(3, 5))
   }
 }
