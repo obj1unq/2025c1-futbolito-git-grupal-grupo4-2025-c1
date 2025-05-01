@@ -19,7 +19,14 @@ object lionel {
 	}
 
 	method patear() {
+	  self.validarPatear()
 	  bocha.mover()
+	}
+
+	method validarPatear() {
+	  if(self.position() != bocha.position()){
+		self.error("no puedo patear")
+	  }
 	}
 
 	
