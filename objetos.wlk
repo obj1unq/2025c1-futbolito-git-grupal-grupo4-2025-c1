@@ -2,32 +2,25 @@
 import wollok.game.*
 
 object lionel {
-	
-	var property position = game.at(3,5)
-	var property bocha = pelota 
+	var property position = game.at(3, 5)
+	var property bocha = pelota
 	var property camiseta = "lionel-suplente.png"
-
-
-	
 	method image() {
 		return camiseta
 	}
-
 	method retroceder() {
-		position = game.at(0.max(position.x() - 1), position.y()) 
+		position = game.at(0.max(position.x() - 1), position.y())
 	}
-	
 	method avanzar() {
-		position = game.at((game.width() - 1).min(position.x() + 1), position.y()) 
+		position = game.at((game.width() - 1).min(position.x() + 1), position.y())
 	}
-
 	method patear() {
 	  self.validarPatear()
 	  bocha.mover()
 	}
 
 	method validarPatear() {
-	  if(self.position() != bocha.position()){
+	  if(! self.estaDondePelota()){
 		self.error("no puedo patear")
 	  }
 	}
@@ -58,6 +51,18 @@ object lionel {
 	method camisetaEsTitular(){
 		return camiseta == "lionel-titular.png"
 	} 
+	
+	method estaDondePelota() = position == bocha.position()
+	
+	method validarTaquito() {
+		if (not self.estaDondePelota()) {self.error("no estoy donde la pelota")}
+	}
+	
+	method taquito() {
+		self.validarTaquito()
+		bocha.taquito()
+	}
+
 }
 
 object pelota {
@@ -66,5 +71,8 @@ object pelota {
 
 	method mover() {
 	  position = game.at((game.width() - 1).min(position.x() + 3), position.y())
+	}
+	method taquito() {
+	  	position = game.at(0.max(position.x() - 2), position.y())
 	}
 }
